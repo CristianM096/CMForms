@@ -28,9 +28,11 @@ const ShowForms = () => {
         </div>
         <table className='table table-striped'>
             <thead className='bg-primary text-white'>
-                <th>Name</th>
-                <th>Creation Date</th>
-                <th>actions</th>
+                <tr>
+                    <th>Name</th>
+                    <th>Creation Date</th>
+                    <th>actions</th>
+                </tr>
             </thead>
             <tbody className='text-white'>
                 { forms.map((form)=>(
@@ -41,7 +43,7 @@ const ShowForms = () => {
                         <Link to={`/edit/${form.id}`} className='btn btn-warning'>Edit</Link>
                         <button onClick={()=>deleteForm(form.id)} className='btn btn-danger'>Delete</button>
                     </td>
-                  </tr>  
+                  </tr>
                 )) }
             </tbody>
         </table>

@@ -4,6 +4,7 @@ import { BrowserRouter,Route,Routes } from 'react-router-dom';
 
 import ShowForms from './components/Form/ShowForms';
 import CreateForm from './components/Form/CreateForm'
+import EditForm from './components/Form/EditForm';
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
           <Routes>
             <Route path='/' element={<ShowForms/>}/>
             <Route path='/create' element={<CreateForm/>}/>
-            {/* <Route></Route> */}
+            <Route path='/edit/:id' element={<EditForm/>}/>
           </Routes>
         </BrowserRouter>
       </header>
