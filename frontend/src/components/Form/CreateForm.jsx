@@ -5,14 +5,14 @@ const endpoint = 'http://localhost:8000/api/form'
 
 
 const CreateForm = () => {
-  const [name, setName] = useState('');  
+  const [name, setName] = useState('');
   const navigate = useNavigate()
   const store = async (e) => {
     e.preventDefault()
     const response = await axios.post(endpoint,{name: name})
-    console.log(response.data)
     navigate('/')
   }
+
 
   return (
     <div>

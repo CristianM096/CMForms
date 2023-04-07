@@ -1,55 +1,90 @@
 import React,{useEffect,useState}from 'react'
 import axios from 'axios'
-import {Link} from 'react-router-dom'
+import PropTypes from 'prop-types'
 import ShowAlternatives from '../Alternative/ShowAlternatives'
 
-const endpoint = 'http://localhost:8000/api'
+const endpoint = 'http://localhost:8000/api/question/'
+const endpointAlnternative = 'http://localhost:8000/api/alternative'
 
 const ShowQuestion = props => {
-  const [questions, setQuestions] = useState([]);
-  const [alternatives, setAlternatives] = useState([]);
-
-  useEffect(() => {
-    getAllQuestions();
-  },[])
-
-  const getAllQuestions = async() => {
-    const response = await axios.get(`${endpoint}/questions/${props.form_id}`);
-    setQuestions(response.data)
-    console.log(response.data)
-  }
-
-  const deleteQuestion = async (id) => {
-    await axios.delete(`${endpoint}/question/${id}`);
-    getAllQuestions()
-  }
-
+    const question = props.question
+    const [statement, setStatement] = useState(question.statement);
+    const [type, setType] = useState(question.type);
+    const [alternatives, setAlternatives] = useState(question.alternatives);
+    
+    const handleSelectChange = (type) => {
+        setType(type);
+      };
+      const createAlternative = async (e) => {
+        e.preventDefault()
+        const response = await axios.post(`${endpointAlnternative}/`,{value: "Escribe un valor", isCorrect: false, question_id: question.id})
+        getAllAlternatitives();
+      }
+      const getAllQuestions = async() => {
+        props.getAllQuestions();
+      }
+      const update = async (e) => {
+        e.preventDefault()
+        const response = await axios.put(`${endpoint}${question.id}`,{statement: statement,type:type, form_id: question.form_id})
+        getAllQuestions();
+      }
+      const getAllAlternatitives = async () => {
+        const response = await axios.get(`${endpointAlnternative}s/${question.id}`)
+        setAlternatives(response.data)
+    }
+    
   return (
     <div>
-        <table className='table table-striped'>
-            <thead className='bg-primary text-white'>
-                <tr>
-                    <th>Name</th>
-                    <th>Creation Date</th>
-                    <th>actions</th>
-                    <th>alternatives</th>
-                </tr>
-            </thead>
-            <tbody className='bg-white'>
-                { questions.map((question)=>(
-                  <tr key={question.id}>
-                    <td className=''>{question.statement}</td>
-                    <td className=''>{question.type}</td>
-                    <td>
-                        <button onClick={()=>deleteQuestion(question.id)} className='btn btn-danger'>Delete</button>
-                    </td>
-                    <td>
-                        <ShowAlternatives question_id={question.id}></ShowAlternatives>
-                    </td>
-                  </tr>
-                )) }
-            </tbody>
-        </table>
+            <div className='row flex-row'>
+                <form onSubmit={update}>
+                    
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">Statement: </span>
+                        </div>
+                        <input value={statement} 
+                            onChange={ (e) => setStatement(e.target.value)} 
+                            type='text' 
+                            className='form-control'
+                        />
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">Type: </span>
+                        </div>
+                        <select className="form-select" aria-label="Default select example"
+                            defaultValue={type}
+                            value={type}
+                            onChange={(e) => setType(e.target.value)}
+                            style={{ width: 120 }}
+                            >
+                            <option value="Multiple">Multiple selection</option>
+                            <option value="Single">Single selection</option>
+                            <option value="TextFree">Free Text</option>
+                        </select>
+                        
+                        <button type='submit' className='btn btn-primary'>update</button>
+                    </div>
+                </form>
+                <div>
+                    {type !== "TextFree" ? (
+                        <div>
+                            {alternatives.map((alternative) =>
+                                <div>
+                                    <ShowAlternatives alternative = {alternative} getAllAlternatitives={getAllAlternatitives}></ShowAlternatives>
+                                </div>
+                            )}
+                            <form onSubmit={createAlternative}>
+                                <div className='mb-3 flex'>
+                                    <button type='submit' className='btn btn-success'>Create new Alternative</button>
+                                </div>
+                            </form>
+                        </div>
+                    ) : (
+                        <div></div>
+                    )}
+            </div>
+        </div>
     </div>
   )
 }
