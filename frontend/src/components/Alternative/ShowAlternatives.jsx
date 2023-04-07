@@ -36,6 +36,7 @@ const ShowAlternatives = props => {
                     onChange={ (e) => setValue(e.target.value)} 
                     type='text' 
                     className='form-control'
+                    required
                 />
                 <div className="px-3">
                     <span className="text-sm-left px-3 text-dark">

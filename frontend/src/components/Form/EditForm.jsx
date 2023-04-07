@@ -38,24 +38,30 @@ const EditForm = () => {
 
   return (
     <div className="d-flex justify-content-between">
-        <div>
-            <h3> Edit Form</h3>
+        <div className='container'>
+            <div className='row'>
+              <h3> Form</h3>
+              <p> Aqui podras agregar nuevas preguntas, así como seleccionar entre los diferentes tipos de pregunta
+                  que tenemos para ti, a demás si eliges entre preguntas Single o Multiple, podras agregar alternativas
+                  para que tu encuestado pueda seleccionar ya sea una respuesta (Single) o más de una (Multiple)</p>
+            </div>
             <form onSubmit={update} >
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon1">Name</span>
+                <div className="input-group mb-3">
+                    <div className="input-group-prepend">
+                        <span className="input-group-text" id="basic-addon1">Name</span>
                     </div>
                     <input value={name} 
                         onChange={ (e) => setName(e.target.value)} 
                         type='text'
                         className='form-control'
                         aria-describedby="basic-addon1"
+                        required
                     />
                     <button type='submit' className='btn btn-primary'>Save</button>  
                 </div>              
             </form>
             <h3> Questions</h3>
-            <div >
+            <div className='row'>
                 <ListQuestions form_id={id} questions={questions} getAllQuestions={getAllQuestions}></ListQuestions>
             </div>
         </div>

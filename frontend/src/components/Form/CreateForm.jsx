@@ -25,6 +25,7 @@ const CreateForm = () => {
                     onChange={ (e) => setName(e.target.value)} 
                     type='text' 
                     className='form-control'
+                    required
                 />
                 <button type='submit' className='btn btn-primary'>Save</button>
             </div>

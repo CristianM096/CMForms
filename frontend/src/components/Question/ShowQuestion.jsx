@@ -1,6 +1,5 @@
 import React,{useEffect,useState}from 'react'
 import axios from 'axios'
-import PropTypes from 'prop-types'
 import ShowAlternatives from '../Alternative/ShowAlternatives'
 
 const endpoint = 'http://localhost:8000/api/question/'
@@ -42,19 +41,20 @@ const ShowQuestion = props => {
             <div className='row flex-row'>
                 <form onSubmit={update}>
                     
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1">Statement: </span>
+                    <div className="input-group mb-3">
+                        <div className="input-group-prepend">
+                            <span className="input-group-text" id="basic-addon1">Statement: </span>
                         </div>
                         <input value={statement} 
                             onChange={ (e) => setStatement(e.target.value)} 
                             type='text' 
                             className='form-control'
+                            required
                         />
                     </div>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1">Type: </span>
+                    <div className="input-group mb-3">
+                        <div className="input-group-prepend">
+                            <span className="input-group-text" id="basic-addon1">Type: </span>
                         </div>
                         <select className="form-select" aria-label="Default select example"
                             defaultValue={type}
@@ -85,7 +85,7 @@ const ShowQuestion = props => {
                                 </div>
                             </form>
                         </div>
-                    ) : (
+                    ):(
                         <div></div>
                     )}
             </div>
