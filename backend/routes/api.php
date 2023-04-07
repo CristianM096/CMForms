@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AlternativeController;
 use App\Http\Controllers\Api\FormController;
 use App\Http\Controllers\Api\QuestionController;
 use Illuminate\Http\Request;
@@ -35,4 +36,11 @@ Route::controller(QuestionController::class)->group(function(){
     Route::get('/question/{id}','show');
     Route::put('/question/{id}','update');
     Route::delete('/question/{id}','destroy');
+});
+Route::controller(AlternativeController::class)->group(function(){
+    Route::get('/alternatives','index');
+    Route::get('/alternatives/{id}','findByQuestionId');
+    Route::post('/alternative','store');
+    Route::put('/alternative/{id}','update');
+    Route::delete('/alternative/{id}','destroy');
 });

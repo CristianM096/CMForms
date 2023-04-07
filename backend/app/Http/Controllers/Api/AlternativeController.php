@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Alternative;
 use Illuminate\Http\Request;
 
 class AlternativeController extends Controller
@@ -12,15 +13,24 @@ class AlternativeController extends Controller
      */
     public function index()
     {
-        //
+        $alternatives = Alternative::all();
+        return $alternatives;
     }
-
+    public function findByQuestionId(string $id){
+        $alternatives = Alternative::where('question_id',$id)->get();
+        return $alternatives;
+    }
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        //
+        $alternative = new Alternative();
+        $alternative->value = $request->value;
+        $alternative->isCorrect = $request->isCorrect;
+        $alternative->question_id = $request->question_id;
+        $alternative->save();
+        return $alternative;
     }
 
     /**
@@ -36,7 +46,11 @@ class AlternativeController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $alternative = Alternative::findOrFail($request->id);
+        $alternative->value = $request->value;
+        $alternative->isCorrect = $request->isCorrect;
+        $alternative->save();
+        return $alternative;
     }
 
     /**
@@ -44,6 +58,7 @@ class AlternativeController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $alternative = Alternative::destroy($id);
+        return $alternative;
     }
 }
