@@ -10,6 +10,7 @@ const CreateForm = () => {
   const store = async (e) => {
     e.preventDefault()
     const response = await axios.post(endpoint,{name: name})
+    console.log(response.data);
     navigate('/')
   }
 

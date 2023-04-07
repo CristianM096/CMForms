@@ -32,6 +32,10 @@ const ShowQuestion = props => {
         const response = await axios.get(`${endpointAlnternative}s/${question.id}`)
         setAlternatives(response.data)
     }
+    const deleteQuestion = async (id) => {
+        await axios.delete(`${endpoint}${id}`);
+        getAllQuestions();
+      }
     
   return (
     <div>
@@ -63,7 +67,8 @@ const ShowQuestion = props => {
                             <option value="TextFree">Free Text</option>
                         </select>
                         
-                        <button type='submit' className='btn btn-primary'>update</button>
+                        <button type='submit' className='btn btn-primary'>Update Question</button>
+                        <button onClick={()=>deleteQuestion(question.id)} className='btn btn-danger'>Delete Question</button>
                     </div>
                 </form>
                 <div>

@@ -2,9 +2,10 @@ import './App.css';
 
 import { BrowserRouter,Route,Routes } from 'react-router-dom';
 
-import ShowForms from './components/Form/ShowForms';
+import ListForms from './components/Form/ListForms';
 import CreateForm from './components/Form/CreateForm'
 import EditForm from './components/Form/EditForm';
+import ShowForm from './components/Form/ShowForm';
 
 function App() {
   return (
@@ -12,9 +13,10 @@ function App() {
       <header className="App-header">
         <BrowserRouter>
           <Routes>
-            <Route path='/' element={<ShowForms/>}/>
+            <Route path='/' element={<ListForms/>}/>
             <Route path='/create' element={<CreateForm/>}/>
             <Route path='/edit/:id' element={<EditForm/>}/>
+            <Route path='/show/:id' element={<ShowForm/>}/>
           </Routes>
         </BrowserRouter>
       </header>

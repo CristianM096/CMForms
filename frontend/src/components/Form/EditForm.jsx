@@ -18,7 +18,7 @@ const EditForm = () => {
     await axios.put(`${endpoint}${id}`,{
         name: name,
     })
-    navigate('/')
+    navigate(`/show/${id}`)
   }
   useEffect( () => {
     getFormById()
@@ -55,7 +55,9 @@ const EditForm = () => {
                 </div>              
             </form>
             <h3> Questions</h3>
-            <ListQuestions form_id={id} questions={questions} getAllQuestions={getAllQuestions}></ListQuestions>
+            <div >
+                <ListQuestions form_id={id} questions={questions} getAllQuestions={getAllQuestions}></ListQuestions>
+            </div>
         </div>
     </div>
   )

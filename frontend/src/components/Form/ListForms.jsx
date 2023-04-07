@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 
 const endpoint = 'http://localhost:8000/api'
 
-const ShowForms = () => {
+const ListForms = () => {
   const[forms,setForms] = useState([]);
   
   useEffect( () => {
@@ -40,6 +40,7 @@ const ShowForms = () => {
                     <td className='text-white'>{form.name}</td>
                     <td className='text-white'>{form.created_at}</td>
                     <td>
+                        <Link to={`/show/${form.id}`} className='btn btn-success'>Show</Link>
                         <Link to={`/edit/${form.id}`} className='btn btn-warning'>Edit</Link>
                         <button onClick={()=>deleteForm(form.id)} className='btn btn-danger'>Delete</button>
                     </td>
@@ -52,4 +53,4 @@ const ShowForms = () => {
   )
 }
 
-export default ShowForms
+export default ListForms

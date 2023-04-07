@@ -28,7 +28,7 @@ const ListQuestions = props => {
     <div>
     
         { questions.map((question)=>(
-          <div>
+          <div className='bg-light rounded-2 m-1 p-3 border border-dark'>
             <ShowQuestion question={question} getAllQuestions={getAllQuestions}></ShowQuestion>
           </div>
         )) }

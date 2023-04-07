@@ -23,6 +23,10 @@ const ShowAlternatives = props => {
         const response = await axios.put(`${endpoint}/${alternative.id}`,{value: value,isCorrect:isCorrect, question_id: alternative.question_id})
         props.getAllAlternatitives();
       }
+      const deleteAlternative = async (id) => {
+        await axios.delete(`${endpoint}/${id}`);
+        props.getAllAlternatitives();
+      }
   return (
     <div>
         <form onSubmit={update}>
@@ -34,12 +38,13 @@ const ShowAlternatives = props => {
                     className='form-control'
                 />
                 <div className="px-3">
-                    <span className="text-sm-left px-3">
+                    <span className="text-sm-left px-3 text-dark">
                     Is Correct
                     </span>
                     <input className="form-check-input " type="checkbox" checked={isCorrect} onChange={handleCheckboxChange}></input>
                 </div>
-                <button type='submit' className='btn btn-primary'>update</button>
+                <button type='submit' className='btn btn-primary'>Update Alternative</button>
+                <button onClick={()=>deleteAlternative(alternative.id)} className='btn btn-danger'>Delete Alternative</button>
             </div>
         </form>
     </div>
