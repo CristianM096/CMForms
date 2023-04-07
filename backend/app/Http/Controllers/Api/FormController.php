@@ -3,47 +3,41 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Form;
 use Illuminate\Http\Request;
 
 class FormController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $forms = Form::all();
+        return $forms;
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $form = new Form();
+        $form->name = $request->name;
+        $form->save();
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
-        //
+        $form = Form::with('questions')->find($id);
+        return $form;
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
-        //
+        $form = Form::findOrFail($request->id);
+        $form->name = $request->name;
+        $form->save();
+        return $form;
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        //
+        $form = Form::destroy($id);
+        return $form;
     }
 }
